@@ -1,0 +1,28 @@
+package svv001;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+	
+public class svvskill6 {
+
+		public static void main(String args) throws ClassNotFoundException, SQLException {
+
+		Class.forName("oracle.jdbc.driver.OracleDriver");
+
+		Connection
+
+		conn=DriverManager.getConnection("jdbc:oracle thin:@localhost:1521:XE","system","root"); 
+		Statement st = conn.createStatement();
+
+		String q="create table sales(id int primary key.name varchar(40),cost int)";
+		System.out.println("table created");
+
+		st.execute(q);
+
+		conn.close();
+
+}
+}
