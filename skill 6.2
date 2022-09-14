@@ -1,0 +1,94 @@
+package svv001;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.Scanner;
+
+import org.junit.BeforeClass;
+import org.junit.jupiter.api.Test;
+
+public class svvskill6_2 {
+
+@BeforeClass
+
+public void setUp() throws ClassNotFoundException, SQLException {
+
+Class.forName("oracle.jdbc.driver.OracleDriver");
+
+Connection conn=DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE", "system","root");
+
+if (conn != null)
+{
+	
+	System.out.println("Connected to the Database...");
+}
+}
+
+@Test()
+
+	public void test() 
+{ 
+	try
+
+{
+
+
+	Class.forName("oracle.jdbc.driver.OracleDriver");
+
+	Connection con =
+
+	DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521", "system","root"); 
+	Statement stmt = con.createStatement();
+
+	int id;
+
+	String name = null;
+
+	Scanner sc = new Scanner(System.in);
+
+	System.out.println("Enter ID:");
+
+	id = sc.nextInt();
+
+	System.out.println("Enter Name:");
+
+	name = sc.next();
+
+	System.out.println("Enter Cost:");
+
+	int cost = sc.nextInt();
+
+	String query =" Insert into sales values("+id+""+name+" "+cost+")";
+	stmt.executeUpdate(query);
+
+	System.out.println("Record is inserted");
+
+	ResultSet rs = stmt.executeQuery("select * from sales");
+
+	while(rs.next()) {
+
+	int Id= rs.getInt("id");
+
+	String Name= rs.getString("name");
+
+	int Cost= rs.getInt("cost");
+	System.out.println(Id+""+Name+"\t"+Cost);
+	}
+	ResultSet rs1=stmt.executeQuery("select sum(cost) from sales");
+
+	
+	while(rs1.next())
+	{
+
+	System.out.println(rs1.getInt(1));
+	}
+	sc.close();
+	}
+	catch(Exception e)
+	{
+	System.out.println(e);
+	}		
+}
+}
